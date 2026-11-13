@@ -1,5 +1,18 @@
 import streamlit as st
 from PIL import Image
+from pathlib import Path
+
+
+def show_team_image(path, size):
+    """Show a team photo if available; otherwise show an informative placeholder."""
+    if not Path(path).is_file():
+        st.info("Teamfoto nicht verfügbar.")
+        return
+    try:
+        with Image.open(path) as image:
+            st.image(image.resize(size))
+    except OSError:
+        st.warning("Teamfoto konnte nicht geladen werden.")
 
 def run():
 
@@ -27,9 +40,7 @@ def run():
     col1, col2 = st.columns([1, 2])
     with col1:
         martin_path = "project_images/martin_picture.jpeg"
-        martin_image = Image.open(martin_path)
-        new_martin_image = martin_image.resize((200, 300))
-        st.image(new_martin_image)
+        show_team_image(martin_path, (200, 300))
     with col2:
         st.write(
             """
@@ -50,9 +61,7 @@ def run():
     col1, col2 = st.columns([1, 2])
     with col1:
         murvet_path = "project_images/muervet_picture.jpeg"
-        murvet_image = Image.open(murvet_path)
-        murvet_new_image = murvet_image.resize((200, 250))
-        st.image(murvet_new_image)
+        show_team_image(murvet_path, (200, 250))
 
     with col2:
         st.write(
@@ -66,8 +75,6 @@ def run():
             Ich bin auch als Bücherwurm bekannt 🙂
             """
         )
-        url = "https://www.linkedin.com/in/murvet-cd/"
-        st.write("👩🏻‍💻 Connect with me on [LinkedIn](%s)" % url)
 
     st.markdown("---")
 
@@ -77,9 +84,7 @@ def run():
     col1, col2 = st.columns([1, 2])
     with col1:
         olti_path = "project_images/olti_picture.jpeg"
-        olti_image = Image.open(olti_path)
-        new_olti_image = olti_image.resize((200, 250))
-        st.image(new_olti_image)
+        show_team_image(olti_path, (200, 250))
     with col2:
         st.write(
             """
@@ -95,9 +100,7 @@ def run():
     col1, col2 = st.columns([1, 2])
     with col1:
         nillab_path = "project_images/nillab_picture.jpeg"
-        nillab_image = Image.open(nillab_path)
-        new_nillab_image = nillab_image.resize((250, 200))
-        st.image(new_nillab_image)
+        show_team_image(nillab_path, (250, 200))
     with col2:
         st.write(
             """
@@ -115,9 +118,7 @@ def run():
     col1, col2 = st.columns([1, 2])
     with col1:
         abel_path = "project_images/anabelle.jpeg"
-        abel_image = Image.open(abel_path)
-        new_abel_image = abel_image.resize((200, 250))
-        st.image(new_abel_image)
+        show_team_image(abel_path, (200, 250))
     with col2:
         st.write(
             """
@@ -126,13 +127,3 @@ def run():
             Neue Matcha- und Kaffeespots auszuprobieren ist eigentlich mein Lebenspassion.
             """
         )
-        url = "https://www.linkedin.com/in/anabelleunike/"
-        st.write("👩🏻‍💻 Connect with me on [LinkedIn](%s)" % url)
-
-    # feedback
-    st.subheader("🎯 Kontaktiere Uns und gebe Feedback!")
-    st.write(
-        """
-        - Email: ane4283@thi.de
-        """
-    )
