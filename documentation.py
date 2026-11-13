@@ -1,4 +1,5 @@
 import streamlit as st
+from pathlib import Path
 
 def run():
     # Pfad zum Erklärungs-Videos
@@ -31,7 +32,10 @@ def run():
     # Realisierung der Spalte1 und Bild1: Text zu Bildern
     with col2:
         # Einbetten des Videos
-        st.video(vid_path)
+        if Path(vid_path).is_file():
+            st.video(vid_path)
+        else:
+            st.info("Das Erklärungsvideo ist derzeit nicht verfügbar.")
 
 
     # Trennlinie
